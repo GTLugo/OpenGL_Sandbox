@@ -40,7 +40,9 @@ add_executable(OpenGL_Sandbox
         src/framework/Texture.cpp
         src/framework/Texture.h
         src/framework/Material.cpp
-        src/framework/Material.h src/framework/AppWindow.cpp src/framework/AppWindow.h)
+        src/framework/Material.h
+        src/framework/AppWindow.cpp
+        src/framework/AppWindow.h)
 
 # specify the dependency on an extra library
 target_link_libraries(OpenGL_Sandbox glfw3.lib glew32s.lib ${OPENGL_LIBRARIES})
