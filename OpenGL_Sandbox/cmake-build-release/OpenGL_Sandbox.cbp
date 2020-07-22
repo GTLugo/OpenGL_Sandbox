@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="OpenGL_Sandbox"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OpenGL_Sandbox">
+				<Option output="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/OpenGL_Sandbox.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/OpenGL_Sandbox"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/vendor"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/dep/GLFW/include"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/dep/GLEW/include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 OpenGL_Sandbox"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OpenGL_Sandbox/fast">
+				<Option output="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/OpenGL_Sandbox.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-DGLEW_STATIC"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/OpenGL_Sandbox"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/vendor"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/dep/GLFW/include"/>
+					<Add directory="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/dep/GLEW/include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 OpenGL_Sandbox/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Dev\General\C++\OpenGL_Sandbox\OpenGL_Sandbox\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/Main.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/Vector.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/AppWindow.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/AppWindow.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/IndexBuffer.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/IndexBuffer.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Material.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Material.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Mesh.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Mesh.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Renderer.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Renderer.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Shader.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Shader.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Texture.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/Texture.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/VertexArray.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/VertexArray.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/VertexBuffer.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/VertexBuffer.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/VertexBufferLayout.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/framework/VertexBufferLayout.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/vendor/stb_image/stb_image.cpp">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/src/vendor/stb_image/stb_image.h">
+			<Option target="OpenGL_Sandbox"/>
+		</Unit>
+		<Unit filename="C:/Dev/General/C++/OpenGL_Sandbox/OpenGL_Sandbox/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
