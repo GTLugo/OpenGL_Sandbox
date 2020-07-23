@@ -13,9 +13,6 @@
 
 #include "Renderer.h"
 
-void GLAPIENTRY MessageCallback (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
-                                 const GLchar* message, const void* userParam);
-
 class AppWindow {
 //    struct DestroyglfwWin {
 //
@@ -47,9 +44,6 @@ public:
     inline const GLFWwindow *GetglfwWindow() const { return m_glfwWindow; }
 
     // Setters
-
-    // Callbacks
-    static void CallbackResize(GLFWwindow* window, int cx, int cy);
 private:
     // GLFW Window Stuff
     GLFWwindow   *m_glfwWindow          = nullptr;
@@ -77,6 +71,13 @@ private:
     void OnStart();
     void OnUpdate();
     void OnEnd();
+
+    // Callbacks
+    void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
+                                     const GLchar *message, const void *userParam);
+
+    static void ResizeCallback(GLFWwindow *window, int cx, int cy);
+    static void KeyCallback(GLFWwindow *window, int key, int scanCode, int action, int mods);
 public:
     // === Application specific variables === //
 

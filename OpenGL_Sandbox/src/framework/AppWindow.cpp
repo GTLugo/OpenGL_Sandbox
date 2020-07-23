@@ -8,20 +8,6 @@
 
 #include "Vector.h"
 
-void GLAPIENTRY MessageCallback (GLenum source,
-                                 GLenum type,
-                                 GLuint id,
-                                 GLenum severity,
-                                 GLsizei length,
-                                 const GLchar* message,
-                                 const void* userParam) {
-    // only output if there is an error or such
-    if (type != GL_DEBUG_TYPE_OTHER)
-        fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
-                 ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
-                 type, severity, message );
-}
-
 AppWindow::AppWindow(const std::string &windowName, unsigned int width, unsigned int height, bool vsync, bool fullscreen) {
     successfulInit = WindowInit(windowName, width, height, vsync, fullscreen) == 0;
     if (successfulInit) {
@@ -56,7 +42,8 @@ int AppWindow::WindowInit(const std::string &windowName, unsigned int width, uns
     /* Make the window's context current */
     glfwMakeContextCurrent(m_glfwWindow);
     glfwSetWindowUserPointer(m_glfwWindow, this);
-    glfwSetWindowSizeCallback(m_glfwWindow, AppWindow::CallbackResize);
+    glfwSetWindowSizeCallback(m_glfwWindow, AppWindow::ResizeCallback);
+    glfwSetKeyCallback(m_glfwWindow, AppWindow::KeyCallback);
 
     m_monitor = glfwGetPrimaryMonitor();
     glfwGetWindowSize(m_glfwWindow, &m_windowedSize.x, &m_windowedSize.y);
@@ -223,10 +210,33 @@ void AppWindow::OnUpdate() {
 void AppWindow::OnEnd() {
 }
 
-void AppWindow::CallbackResize(GLFWwindow *window, int cx, int cy) {
+void GLAPIENTRY AppWindow::MessageCallback(GLenum source,
+                                           GLenum type,
+                                           GLuint id,
+                                           GLenum severity,
+                                           GLsizei length,
+                                           const GLchar *message,
+                                           const void *userParam) {
+    // only output if there is an error or such
+    if (type != GL_DEBUG_TYPE_OTHER)
+        fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+                 ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+                 type, severity, message );
+}
+
+void AppWindow::ResizeCallback(GLFWwindow *window, int cx, int cy) {
     void *ptr = glfwGetWindowUserPointer(window);
     if (auto *appWindow = static_cast<AppWindow*>(ptr) )
         appWindow->Resize(cx, cy);
+}
+
+void AppWindow::KeyCallback(GLFWwindow *window, int key, int scanCode, int action, int mods) {
+    void *ptr = glfwGetWindowUserPointer(window);
+    if (auto *appWindow = static_cast<AppWindow*>(ptr) ) {
+        if (((key == GLFW_KEY_GRAVE_ACCENT) && action == GLFW_PRESS)) {
+            appWindow->SetFullScreen(!appWindow->IsFullscreen());
+        }
+    }
 }
 
 void AppWindow::SetFullScreen(bool fullscreen) {
