@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include "glm/glm.hpp"
 #include "Material.h"
 
 Material::Material() {
@@ -49,6 +50,12 @@ void Material::SetUniform4f(const std::string &name, float v0, float v1, float v
     if (!m_shader) return;
     m_shader->Bind();
     m_shader->SetUniform4f(name, v0, v1, v2, v3);
+}
+
+void Material::SetUniformMat4f(const std::string &name, const glm::mat4 &matrix) const {
+    if (!m_shader) return;
+    m_shader->Bind();
+    m_shader->SetUniformMat4f(name, matrix);
 }
 
 void Material::SetTexture2D(const std::string &filePath) {

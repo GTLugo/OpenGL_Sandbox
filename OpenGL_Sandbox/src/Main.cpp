@@ -13,13 +13,13 @@ int main(void) {
     FreeConsole();
 #endif
 
-    auto window = std::make_unique<AppWindow>("Sandbox Window :)", false, false);
+    // Create window instance and ensure it was successfully initialized
+    auto window = std::make_unique<AppWindow>("Window Test", 1024, 576, false, false);
     if (!window->successfulInit) return -1;
-
+    // Enter window's render loop
     window->GameLoop();
 
     std::cout << "Have a good day! <3" << std::endl;
-    //getchar();
     return 0;
 }
 

@@ -25,19 +25,21 @@ public:
     void SetUniform1i(const std::string &name, unsigned int v0) const;
     void SetUniform1f(const std::string &name, float v0) const;
     void SetUniform4f(const std::string &name, float v0, float v1, float v2, float v3) const;
+    void SetUniformMat4f(const std::string &name, const glm::mat4 &matrix) const;
+
     void SetTexture2D(const std::string &filePath);
 
     void SetRenderMode(RenderMode mode) { m_renderMode = mode; }
-
     inline std::shared_ptr<Shader>  GetShader()      const { return m_shader; }
     inline std::shared_ptr<Texture> GetTexture2D()   const { return m_texture; }
     inline unsigned int             GetTextureSlot() const { return m_textureSlot; }
-    inline RenderMode               GetRenderMode()  const { return m_renderMode; }
 
+    inline RenderMode               GetRenderMode()  const { return m_renderMode; }
 private:
     RenderMode               m_renderMode;
     std::shared_ptr<Shader>  m_shader;
     std::shared_ptr<Texture> m_texture;
+
     unsigned int             m_textureSlot;
 };
 

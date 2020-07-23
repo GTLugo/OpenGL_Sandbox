@@ -5,6 +5,7 @@
 #ifndef OPENGL_SANDBOX_MESH_H
 #define OPENGL_SANDBOX_MESH_H
 
+#include <glm/glm.hpp>
 #include "Vector.h"
 #include "VertexArray.h"
 #include "IndexBuffer.h"
@@ -22,15 +23,15 @@ class Mesh {
 public:
     Mesh();
 //    Mesh(RenderDimensions dimensions, RenderMode mode, std::vector<float> vertices, std::vector<unsigned int> indices);
-    Mesh(const std::vector<Vector2D> &vertices, const std::vector<unsigned int> &indices,
-            const std::vector<Vector2D> &uvs, std::shared_ptr<Material> &material);
-    Mesh(const std::vector<Vector3D> &vertices, const std::vector<unsigned int> &indices,
-            const std::vector<Vector2D> &uvs, std::shared_ptr<Material> &material);
+    Mesh(const std::vector<glm::vec2> &vertices, const std::vector<unsigned int> &indices,
+            const std::vector<glm::vec2> &uvs, std::shared_ptr<Material> &material);
+    Mesh(const std::vector<glm::vec3> &vertices, const std::vector<unsigned int> &indices,
+            const std::vector<glm::vec2> &uvs, std::shared_ptr<Material> &material);
 
     ~Mesh();
 
-    void SetMesh(const std::vector<Vector2D> &vertices, const std::vector<unsigned int> &indices, const std::vector<Vector2D> &uvs);
-    void SetMesh(const std::vector<Vector3D> &vertices, const std::vector<unsigned int> &indices, const std::vector<Vector2D> &uvs);
+    void SetMesh(const std::vector<glm::vec2> &vertices, const std::vector<unsigned int> &indices, const std::vector<glm::vec2> &uvs);
+    void SetMesh(const std::vector<glm::vec3> &vertices, const std::vector<unsigned int> &indices, const std::vector<glm::vec2> &uvs);
     void SetVertices(const float *vertices, unsigned int floatsPerVertex, unsigned int vertCount);
 
     void SetIndices(const unsigned int *indices, unsigned int count);

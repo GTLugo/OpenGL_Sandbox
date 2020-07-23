@@ -7,6 +7,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vendor/glm/detail/type_mat4x4.hpp>
 
 struct ShaderProgram {
     std::string VertexProgram;
@@ -23,16 +24,18 @@ public:
     void SetUniform1i(const std::string &name, unsigned int v0);
     void SetUniform1f(const std::string &name, float v0);
     void SetUniform4f(const std::string &name, float v0, float v1, float v2, float v3);
+    void SetUniformMat4f(const std::string &name, const glm::mat4 &matrix);
 
     inline std::string GetFilePath() const { return m_filePath; }
 private:
     unsigned int m_rendererID;
     std::string m_filePath;
-    std::unordered_map<std::string, int> m_uniformLocationCache;
 
+    std::unordered_map<std::string, int> m_uniformLocationCache;
     int GetUniformLocation(const std::string &name);
     ShaderProgram ParseShaderFile();
     static unsigned int CompileShader(unsigned int type, const std::string &shader);
+
     unsigned int CreateShader(const std::string &vertexShader, const std::string &fragmentShader);
 };
 

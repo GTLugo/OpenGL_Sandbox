@@ -21,8 +21,8 @@ void GLAPIENTRY MessageCallback (GLenum source,
                  type, severity, message );
 }
 
-AppWindow::AppWindow(const std::string &windowName, bool vsync, bool fullscreen) {
-    successfulInit = WindowInit(windowName, vsync, fullscreen) == 0;
+AppWindow::AppWindow(const std::string &windowName, unsigned int width, unsigned int height, bool vsync, bool fullscreen) {
+    successfulInit = WindowInit(windowName, width, height, vsync, fullscreen) == 0;
     if (successfulInit) {
         m_lastTime = glfwGetTime();
         m_nbFrames = 0;
@@ -33,7 +33,7 @@ AppWindow::~AppWindow() {
     glfwTerminate();
 }
 
-int AppWindow::WindowInit(const std::string &windowName, bool vsync, bool fullscreen) {
+int AppWindow::WindowInit(const std::string &windowName, unsigned int width, unsigned int height, bool vsync, bool fullscreen) {
     /* Initialize the library */
     if (!glfwInit())
         return -1;
@@ -46,7 +46,7 @@ int AppWindow::WindowInit(const std::string &windowName, bool vsync, bool fullsc
 //    m_glfwWindow = std::unique_ptr<GLFWwindow, DestroyglfwWin>(
 //            glfwCreateWindow(1920, 1080, "Sandbox", fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr)
 //            );
-    m_glfwWindow = glfwCreateWindow(640, 480, windowName.c_str(), nullptr, nullptr);
+    m_glfwWindow = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
     if (!m_glfwWindow) {
         glfwTerminate();
         return -1;
@@ -123,13 +123,26 @@ void AppWindow::OnAwake() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBlendEquation(GL_FUNC_ADD);
 
+    m_projectionMatrix = glm::ortho(
+            -1.6f,
+            1.6f,
+            -0.9f,
+            0.9f,
+            -1.0f,
+            1.0f);
+
+    m_renderer = std::make_unique<Renderer>(m_projectionMatrix);
+
     m_renderer->SetBufferBit(0.3f, 0.7f, 1.0f, 1.0f);
+
+    // Shader & Material setup //
+    simpleTexturedUnlitShader = std::make_shared<Shader>("res/shaders/SimpleTexturedUnlit.shader");
+    simpleUnlitShader = std::make_shared<Shader>("res/shaders/SimpleUnlit.shader");
+
+    simpleMaterial = std::make_shared<Material>(RenderMode::TEXTURED, simpleTexturedUnlitShader, "res/sprites/test_sprite_2.png");
 }
 
 void AppWindow::OnStart() {
-    simpleTexturedUnlitShader = std::make_shared<Shader>("res/shaders/SimpleTexturedUnlit.shader");
-    simpleUnlitShader = std::make_shared<Shader>("res/shaders/SimpleUnlit.shader");
-    simpleMaterial = std::make_shared<Material>(RenderMode::TEXTURED, simpleTexturedUnlitShader, "res/sprites/test_sprite_2.png");
 
     quadMesh = new Mesh(quadPositions, quadIndices, quadUVs, simpleMaterial);
 }
@@ -139,35 +152,35 @@ void AppWindow::OnUpdate() {
 
     switch (incrementIndex) {
         case 0:
-            if (rgba.r() > 0.0f) {
-                rgba.r() -= increment;
-                rgba.g() -= increment;
+            if (rgba.r > 0.0f) {
+                rgba.r -= increment;
+                rgba.g -= increment;
             }
             else {
-                rgba.r() = 1.0f;
-                rgba.g() = 1.0f;
+                rgba.r = 1.0f;
+                rgba.g = 1.0f;
                 incrementIndex = 1;
             }
             break;
         case 1:
-            if (rgba.g() > 0.0f) {
-                rgba.g() -= increment;
-                rgba.b() -= increment;
+            if (rgba.g > 0.0f) {
+                rgba.g -= increment;
+                rgba.b -= increment;
             }
             else {
-                rgba.g() = 1.0f;
-                rgba.b() = 1.0f;
+                rgba.g = 1.0f;
+                rgba.b = 1.0f;
                 incrementIndex = 2;
             }
             break;
         case 2:
-            if (rgba.b() > 0.0f) {
-                rgba.b() -= increment;
-                rgba.r() -= increment;
+            if (rgba.b > 0.0f) {
+                rgba.b -= increment;
+                rgba.r -= increment;
             }
             else {
-                rgba.b() = 1.0f;
-                rgba.r() = 1.0f;
+                rgba.b = 1.0f;
+                rgba.r = 1.0f;
                 incrementIndex = 0;
             }
             break;
