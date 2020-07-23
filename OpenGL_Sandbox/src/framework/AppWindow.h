@@ -52,16 +52,18 @@ public:
     static void CallbackResize(GLFWwindow* window, int cx, int cy);
 private:
     // GLFW Window Stuff
-    GLFWwindow*  m_glfwWindow     = nullptr;
-    GLFWmonitor* m_monitor        = nullptr;
-    Vector2DInt  m_windowPosition  {0, 0};
-    Vector2DInt  m_windowSize      {0, 0};
-    Vector2DInt  m_viewportSize    {0, 0};
-    bool         m_updateViewport = true;
+    GLFWwindow   *m_glfwWindow        = nullptr;
+    GLFWmonitor  *m_monitor           = nullptr;
+    glm::i32vec2  m_windowedPosition  {0, 0};
+    glm::i32vec2  m_windowedSize      {0, 0};
+    glm::i32vec2  m_viewportSize      {0, 0};
+    glm::i32vec2  m_viewportCenter    {0, 0};
+    bool          m_updateViewport    = true;
     // OpenGL Rendering Stuff
     std::unique_ptr<Renderer> m_renderer;
-
     glm::mat4 m_projectionMatrix;
+    glm::mat4 m_MVP;
+
     double m_lastTime    = 0.0;
     int    m_nbFrames    = 0;
     double m_currentTime = 0.0;
@@ -82,17 +84,19 @@ public:
     std::shared_ptr<Material> simpleMaterial;
     // === === === === === === === //
 
+
     glm::vec4 rgba = {1.0f,1.0f,1.0f,1.0f};
     float increment = 0.05f;
     int incrementIndex = 0;
 
     // set up example data
-    std::vector<glm::vec2> quadPositions = {
-            glm::vec2(-0.5f, -0.5f), // 0
-            glm::vec2(0.5f, -0.5f), // 1
-            glm::vec2(0.5f,  0.5f), // 2
-            glm::vec2(-0.5f,  0.5f)// 3
-    };
+    std::vector<glm::vec2> quadPositions;
+//    std::vector<glm::vec2> quadPositions = {
+//            glm::vec2(-0.5f, -0.5f), // 0
+//            glm::vec2(0.5f, -0.5f), // 1
+//            glm::vec2(0.5f,  0.5f), // 2
+//            glm::vec2(-0.5f,  0.5f)// 3
+//    };
     std::vector<glm::vec2> quadUVs = {
             glm::vec2(0.0, 0.0), // 0
             glm::vec2(1.0, 0.0), // 1
@@ -103,8 +107,6 @@ public:
             0, 1, 2,
             2, 3, 0
     };
-
-    Mesh *quadMesh;
 };
 
 

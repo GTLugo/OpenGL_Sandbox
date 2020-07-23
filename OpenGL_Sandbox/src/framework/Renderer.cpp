@@ -9,8 +9,9 @@
 #include "Mesh.h"
 #include "Vector.h"
 
-Renderer::Renderer(const glm::mat4 &projectionMatrix) {
-    m_projectionMatrix = projectionMatrix;
+Renderer::Renderer(glm::mat4 &projectionMatrix) {
+    m_projectionMatrix = &projectionMatrix;
+    // std::cout << m_projectionMatrix << std::endl;
 }
 
 Renderer::~Renderer() {
@@ -32,7 +33,7 @@ void Renderer::DrawMesh(const Mesh &mesh, glm::vec4 rgba) const {
     mesh.GetVertexArray()->Bind();
     mesh.GetIndexBuffer()->Bind();
     if (material) {
-        material->SetUniformMat4f("u_MVP", m_projectionMatrix);
+        material->SetUniformMat4f("u_MVP", *m_projectionMatrix);
         switch (material->GetRenderMode()) {
             case RenderMode::TEXTURED:
                 material->GetTexture2D()->Bind(material->GetTextureSlot());

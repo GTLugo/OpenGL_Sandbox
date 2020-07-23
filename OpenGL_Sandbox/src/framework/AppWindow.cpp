@@ -58,8 +58,8 @@ int AppWindow::WindowInit(const std::string &windowName, unsigned int width, uns
     glfwSetWindowSizeCallback(m_glfwWindow, AppWindow::CallbackResize);
 
     m_monitor = glfwGetPrimaryMonitor();
-    glfwGetWindowSize(m_glfwWindow, &m_windowSize.x(), &m_windowSize.y());
-    glfwGetWindowPos(m_glfwWindow, &m_windowPosition.x(), &m_windowPosition.y());
+    glfwGetWindowSize(m_glfwWindow, &m_windowedSize.x, &m_windowedSize.y);
+    glfwGetWindowPos(m_glfwWindow, &m_windowedPosition.x, &m_windowedPosition.y);
     m_updateViewport = true;
     SetFullScreen(fullscreen);
 
@@ -76,6 +76,14 @@ int AppWindow::WindowInit(const std::string &windowName, unsigned int width, uns
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, nullptr);
 #endif
+
+    m_projectionMatrix = glm::ortho(
+            0.0f,
+            (float)width,
+            0.0f,
+            (float)height,
+            -1.0f,
+            1.0f);
 
     return 0;
 }
@@ -98,8 +106,20 @@ void AppWindow::GameLoop() {
             m_lastTime += 1.0;
         }
         if (m_updateViewport) {
-            glfwGetFramebufferSize(m_glfwWindow, &m_viewportSize.x(), &m_viewportSize.y());
-            glViewport( 0, 0, m_viewportSize.x(), m_viewportSize.y());
+            glfwGetFramebufferSize(m_glfwWindow, &m_viewportSize.x, &m_viewportSize.y);
+            glViewport(0, 0, m_viewportSize.x, m_viewportSize.y);
+            m_viewportCenter = {m_viewportSize.x * 0.5,  m_viewportSize.y * 0.5};
+            std::cout << m_viewportSize.x << ", " << m_viewportSize.y << std::endl;
+            std::cout << m_viewportCenter.x << ", " << m_viewportCenter.y << std::endl;
+
+            m_projectionMatrix = glm::ortho(
+                    0.0f,
+                    (float)m_viewportSize.x,
+                    0.0f,
+                    (float)m_viewportSize.y,
+                    -1.0f,
+                    1.0f);
+
             m_updateViewport = false;
         }
 
@@ -123,16 +143,15 @@ void AppWindow::OnAwake() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBlendEquation(GL_FUNC_ADD);
 
-    m_projectionMatrix = glm::ortho(
-            -1.6f,
-            1.6f,
-            -0.9f,
-            0.9f,
-            -1.0f,
-            1.0f);
+//    m_projectionMatrix = std::make_shared<glm::mat4>(glm::ortho(
+//            -1.6f,
+//            1.6f,
+//            -0.9f,
+//            0.9f,
+//            -1.0f,
+//            1.0f));
 
     m_renderer = std::make_unique<Renderer>(m_projectionMatrix);
-
     m_renderer->SetBufferBit(0.3f, 0.7f, 1.0f, 1.0f);
 
     // Shader & Material setup //
@@ -144,11 +163,18 @@ void AppWindow::OnAwake() {
 
 void AppWindow::OnStart() {
 
-    quadMesh = new Mesh(quadPositions, quadIndices, quadUVs, simpleMaterial);
 }
 
 void AppWindow::OnUpdate() {
-    m_renderer->DrawMesh(*quadMesh, rgba);
+    quadPositions = {
+            glm::vec2(m_viewportCenter.x - 100, m_viewportCenter.y - 100), // 0
+            glm::vec2(m_viewportCenter.x + 100, m_viewportCenter.y - 100), // 1
+            glm::vec2(m_viewportCenter.x + 100, m_viewportCenter.y + 100), // 2
+            glm::vec2(m_viewportCenter.x - 100, m_viewportCenter.y + 100)// 3
+    };
+
+    Mesh quadMesh(quadPositions, quadIndices, quadUVs, simpleMaterial);
+    m_renderer->DrawMesh(quadMesh, rgba);
 
     switch (incrementIndex) {
         case 0:
@@ -190,7 +216,6 @@ void AppWindow::OnUpdate() {
 }
 
 void AppWindow::OnEnd() {
-    delete quadMesh;
 }
 
 void AppWindow::CallbackResize(GLFWwindow *window, int cx, int cy) {
@@ -205,8 +230,8 @@ void AppWindow::SetFullScreen(bool fullscreen) {
 
     if (fullscreen) {
         // backup window position and window size
-        glfwGetWindowPos(m_glfwWindow, &m_windowPosition.x(), &m_windowPosition.y());
-        glfwGetWindowSize(m_glfwWindow, &m_windowSize.x(), &m_windowSize.y());
+        glfwGetWindowPos(m_glfwWindow, &m_windowedPosition.x, &m_windowedPosition.y);
+        glfwGetWindowSize(m_glfwWindow, &m_windowedSize.x, &m_windowedSize.y);
 
         // get resolution of monitor
         const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -216,14 +241,14 @@ void AppWindow::SetFullScreen(bool fullscreen) {
     }
     else {
         // restore last window size and position
-        glfwSetWindowMonitor(m_glfwWindow, nullptr, m_windowPosition.x(), m_windowPosition.y(),
-                m_windowSize.x(), m_windowSize.y(), 0);
+        glfwSetWindowMonitor(m_glfwWindow, nullptr, m_windowedPosition.x, m_windowedPosition.y,
+                             m_windowedSize.x, m_windowedSize.y, 0);
     }
 
     m_updateViewport = true;
 }
 
 void AppWindow::Resize(int cx, int cy) {
-    std::cout << "Resizing window..." << std::endl;
+    // std::cout << "Resizing window..." << std::endl;
     m_updateViewport = true;
 }

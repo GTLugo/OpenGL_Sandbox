@@ -14,9 +14,9 @@
 
 class Renderer {
 public:
-    glm::mat4 m_projectionMatrix;
+    glm::mat4 *m_projectionMatrix;
 
-    explicit Renderer(const glm::mat4 &projectionMatrix);
+    explicit Renderer(glm::mat4 &projectionMatrix);
     ~Renderer();
 
     void Clear() const;
