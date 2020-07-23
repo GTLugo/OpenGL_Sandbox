@@ -52,13 +52,16 @@ public:
     static void CallbackResize(GLFWwindow* window, int cx, int cy);
 private:
     // GLFW Window Stuff
-    GLFWwindow   *m_glfwWindow        = nullptr;
-    GLFWmonitor  *m_monitor           = nullptr;
-    glm::i32vec2  m_windowedPosition  {0, 0};
-    glm::i32vec2  m_windowedSize      {0, 0};
-    glm::i32vec2  m_viewportSize      {0, 0};
-    glm::i32vec2  m_viewportCenter    {0, 0};
-    bool          m_updateViewport    = true;
+    GLFWwindow   *m_glfwWindow          = nullptr;
+    GLFWmonitor  *m_monitor             = nullptr;
+    glm::i32vec2  m_initialWindowedSize {0, 0};
+    glm::i32vec2  m_windowedPosition    {0, 0};
+    glm::i32vec2  m_windowedSize        {0, 0};
+    glm::i32vec2  m_viewportSize        {0, 0};
+    glm::i32vec2  m_viewportCenter      {0, 0};
+    glm::vec2     m_viewportScale      {0, 0};
+    float         m_viewportAutoScale   = 1.0f;
+    bool          m_updateViewport      = true;
     // OpenGL Rendering Stuff
     std::unique_ptr<Renderer> m_renderer;
     glm::mat4 m_projectionMatrix;

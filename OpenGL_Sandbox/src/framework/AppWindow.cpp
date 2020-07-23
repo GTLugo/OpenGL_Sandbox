@@ -4,6 +4,7 @@
 #include "AppWindow.h"
 
 #include <iostream>
+#include <cmath>
 
 #include "Vector.h"
 
@@ -76,7 +77,7 @@ int AppWindow::WindowInit(const std::string &windowName, unsigned int width, uns
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, nullptr);
 #endif
-
+    m_initialWindowedSize = {width, height};
     m_projectionMatrix = glm::ortho(
             0.0f,
             (float)width,
@@ -119,6 +120,9 @@ void AppWindow::GameLoop() {
                     (float)m_viewportSize.y,
                     -1.0f,
                     1.0f);
+            m_viewportScale = {(float)m_viewportSize.x / (float)m_initialWindowedSize.x,
+                               (float)m_viewportSize.y / (float)m_initialWindowedSize.y};
+            m_viewportAutoScale = std::min(m_viewportScale.x, m_viewportScale.y);
 
             m_updateViewport = false;
         }
@@ -166,11 +170,12 @@ void AppWindow::OnStart() {
 }
 
 void AppWindow::OnUpdate() {
+    int size = 250.0f * m_viewportAutoScale;
     quadPositions = {
-            glm::vec2(m_viewportCenter.x - 100, m_viewportCenter.y - 100), // 0
-            glm::vec2(m_viewportCenter.x + 100, m_viewportCenter.y - 100), // 1
-            glm::vec2(m_viewportCenter.x + 100, m_viewportCenter.y + 100), // 2
-            glm::vec2(m_viewportCenter.x - 100, m_viewportCenter.y + 100)// 3
+            glm::vec2(m_viewportCenter.x - size, m_viewportCenter.y - size), // 0
+            glm::vec2(m_viewportCenter.x + size, m_viewportCenter.y - size), // 1
+            glm::vec2(m_viewportCenter.x + size, m_viewportCenter.y + size), // 2
+            glm::vec2(m_viewportCenter.x - size, m_viewportCenter.y + size)// 3
     };
 
     Mesh quadMesh(quadPositions, quadIndices, quadUVs, simpleMaterial);
