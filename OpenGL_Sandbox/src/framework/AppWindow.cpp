@@ -44,6 +44,7 @@ int AppWindow::WindowInit(const std::string &windowName, unsigned int width, uns
     glfwSetWindowUserPointer(m_glfwWindow, this);
     glfwSetWindowSizeCallback(m_glfwWindow, AppWindow::ResizeCallback);
     glfwSetKeyCallback(m_glfwWindow, AppWindow::KeyCallback);
+    glfwSetCursorPosCallback(m_glfwWindow, AppWindow::CursorCallback);
 
     m_monitor = glfwGetPrimaryMonitor();
     glfwGetWindowSize(m_glfwWindow, &m_windowedSize.x, &m_windowedSize.y);
@@ -226,8 +227,9 @@ void GLAPIENTRY AppWindow::MessageCallback(GLenum source,
 
 void AppWindow::ResizeCallback(GLFWwindow *window, int cx, int cy) {
     void *ptr = glfwGetWindowUserPointer(window);
-    if (auto *appWindow = static_cast<AppWindow*>(ptr) )
+    if (auto *appWindow = static_cast<AppWindow*>(ptr)){
         appWindow->Resize(cx, cy);
+    }
 }
 
 void AppWindow::KeyCallback(GLFWwindow *window, int key, int scanCode, int action, int mods) {
@@ -236,6 +238,13 @@ void AppWindow::KeyCallback(GLFWwindow *window, int key, int scanCode, int actio
         if (((key == GLFW_KEY_GRAVE_ACCENT) && action == GLFW_PRESS)) {
             appWindow->SetFullScreen(!appWindow->IsFullscreen());
         }
+    }
+}
+
+void AppWindow::CursorCallback(GLFWwindow *window, double xpos, double ypos) {
+    void *ptr = glfwGetWindowUserPointer(window);
+    if (auto *appWindow = static_cast<AppWindow*>(ptr) ) {
+
     }
 }
 

@@ -78,6 +78,7 @@ private:
 
     static void ResizeCallback(GLFWwindow *window, int cx, int cy);
     static void KeyCallback(GLFWwindow *window, int key, int scanCode, int action, int mods);
+    static void CursorCallback(GLFWwindow *window, double xpos, double ypos);
 public:
     // === Application specific variables === //
 
