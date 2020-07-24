@@ -37,13 +37,15 @@ public:
     inline const void SwapBuffers() const { glfwSwapBuffers(m_glfwWindow); }
     inline const void PollEvents() const { glfwPollEvents(); }
     void Resize(int cx, int cy);
-    inline const bool IsFullscreen() const { return glfwGetWindowMonitor(m_glfwWindow) != nullptr; }
-    void SetFullScreen(bool fullscreen);
 
     // Getters
     inline const GLFWwindow *GetglfwWindow() const { return m_glfwWindow; }
+    inline const bool IsFullscreen() const { return glfwGetWindowMonitor(m_glfwWindow) != nullptr; }
+    inline const bool IsCursorLocked() const { return m_cursorLocked; }
 
     // Setters
+    void SetFullScreen(bool fullscreen);
+    void SetCursorLocked(bool cursorLocked);
 private:
     // GLFW Window Stuff
     GLFWwindow   *m_glfwWindow          = nullptr;
@@ -57,6 +59,8 @@ private:
     glm::dvec2    m_cursorPosition      {0, 0};
     float         m_viewportAutoScale   = 1.0f;
     bool          m_updateViewport      = true;
+    bool          m_cursorLocked        = false;
+
     // OpenGL Rendering Stuff
     std::unique_ptr<Renderer> m_renderer;
     glm::mat4 m_projectionMatrix;

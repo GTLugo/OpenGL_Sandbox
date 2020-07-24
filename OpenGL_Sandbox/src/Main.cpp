@@ -14,7 +14,7 @@ int main(void) {
 #endif
 
     // Create window instance and ensure it was successfully initialized
-    auto window = std::make_unique<AppWindow>("Window Test", 960, 540, false, false);
+    auto window = std::make_unique<AppWindow>("Window Test", 960, 540, true, false);
     if (!window->successfulInit) return -1;
     // Enter window's render loop
     window->GameLoop();

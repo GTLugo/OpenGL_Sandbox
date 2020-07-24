@@ -237,7 +237,8 @@ void AppWindow::KeyCallback(GLFWwindow *window, int key, int scanCode, int actio
     void *ptr = glfwGetWindowUserPointer(window);
     if (auto *appWindow = static_cast<AppWindow*>(ptr) ) {
         if (((key == GLFW_KEY_ESCAPE) && action == GLFW_PRESS)) {
-            glfwSetWindowShouldClose(window, true);
+            // glfwSetWindowShouldClose(window, true);
+            appWindow->SetCursorLocked(!appWindow->IsCursorLocked());
         }
         if (((key == GLFW_KEY_GRAVE_ACCENT) && action == GLFW_PRESS)) {
             appWindow->SetFullScreen(!appWindow->IsFullscreen());
@@ -249,7 +250,8 @@ void AppWindow::CursorCallback(GLFWwindow *window, double xpos, double ypos) {
     void *ptr = glfwGetWindowUserPointer(window);
     if (auto *appWindow = static_cast<AppWindow*>(ptr) ) {
         appWindow->m_cursorPosition = {xpos, ypos};
-        std::cout << "Mouse Pos: " << appWindow->m_cursorPosition.x << ", " << appWindow->m_cursorPosition.y << std::endl;
+        // std::cout << "Mouse Pos: " << appWindow->m_cursorPosition.x << ", " <<
+        // appWindow->m_cursorPosition.y << std::endl;
     }
 }
 
@@ -277,6 +279,20 @@ void AppWindow::SetFullScreen(bool fullscreen) {
     }
 
     m_updateViewport = true;
+}
+
+void AppWindow::SetCursorLocked(bool cursorLocked) {
+    if (IsCursorLocked() == cursorLocked)
+        return;
+
+    if (cursorLocked) {
+        glfwSetInputMode(m_glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        m_cursorLocked = true;
+    }
+    else {
+        glfwSetInputMode(m_glfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        m_cursorLocked = false;
+    }
 }
 
 void AppWindow::Resize(int cx, int cy) {
