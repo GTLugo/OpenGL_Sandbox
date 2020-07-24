@@ -53,7 +53,8 @@ private:
     glm::i32vec2  m_windowedSize        {0, 0};
     glm::i32vec2  m_viewportSize        {0, 0};
     glm::i32vec2  m_viewportCenter      {0, 0};
-    glm::vec2     m_viewportScale      {0, 0};
+    glm::vec2     m_viewportScale       {0, 0};
+    glm::dvec2    m_cursorPosition      {0, 0};
     float         m_viewportAutoScale   = 1.0f;
     bool          m_updateViewport      = true;
     // OpenGL Rendering Stuff
@@ -73,7 +74,7 @@ private:
     void OnEnd();
 
     // Callbacks
-    void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
+    static void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
                                      const GLchar *message, const void *userParam);
 
     static void ResizeCallback(GLFWwindow *window, int cx, int cy);
@@ -96,12 +97,6 @@ public:
 
     // set up example data
     std::vector<glm::vec2> quadPositions;
-//    std::vector<glm::vec2> quadPositions = {
-//            glm::vec2(-0.5f, -0.5f), // 0
-//            glm::vec2(0.5f, -0.5f), // 1
-//            glm::vec2(0.5f,  0.5f), // 2
-//            glm::vec2(-0.5f,  0.5f)// 3
-//    };
     std::vector<glm::vec2> quadUVs = {
             glm::vec2(0.0, 0.0), // 0
             glm::vec2(1.0, 0.0), // 1

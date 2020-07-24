@@ -69,8 +69,8 @@ int AppWindow::WindowInit(const std::string &windowName, unsigned int width, uns
     m_projectionMatrix = glm::ortho(
             0.0f,
             (float)width,
-            0.0f,
             (float)height,
+            0.0f,
             -1.0f,
             1.0f);
 
@@ -104,8 +104,8 @@ void AppWindow::GameLoop() {
             m_projectionMatrix = glm::ortho(
                     0.0f,
                     (float)m_viewportSize.x,
-                    0.0f,
                     (float)m_viewportSize.y,
+                    0.0f,
                     -1.0f,
                     1.0f);
             m_viewportScale = {(float)m_viewportSize.x / (float)m_initialWindowedSize.x,
@@ -158,12 +158,12 @@ void AppWindow::OnStart() {
 }
 
 void AppWindow::OnUpdate() {
-    int size = 250.0f * m_viewportAutoScale;
+    int size = 50.0f * m_viewportAutoScale;
     quadPositions = {
-            glm::vec2(m_viewportCenter.x - size, m_viewportCenter.y - size), // 0
-            glm::vec2(m_viewportCenter.x + size, m_viewportCenter.y - size), // 1
-            glm::vec2(m_viewportCenter.x + size, m_viewportCenter.y + size), // 2
-            glm::vec2(m_viewportCenter.x - size, m_viewportCenter.y + size)// 3
+            glm::vec2(m_cursorPosition.x - size, m_cursorPosition.y + size), // 0
+            glm::vec2(m_cursorPosition.x + size, m_cursorPosition.y + size), // 1
+            glm::vec2(m_cursorPosition.x + size, m_cursorPosition.y - size), // 2
+            glm::vec2(m_cursorPosition.x - size, m_cursorPosition.y - size)  // 3
     };
 
     Mesh quadMesh(quadPositions, quadIndices, quadUVs, simpleMaterial);
@@ -206,6 +206,7 @@ void AppWindow::OnUpdate() {
         default:
             break;
     }
+
 }
 
 void AppWindow::OnEnd() {
@@ -235,6 +236,9 @@ void AppWindow::ResizeCallback(GLFWwindow *window, int cx, int cy) {
 void AppWindow::KeyCallback(GLFWwindow *window, int key, int scanCode, int action, int mods) {
     void *ptr = glfwGetWindowUserPointer(window);
     if (auto *appWindow = static_cast<AppWindow*>(ptr) ) {
+        if (((key == GLFW_KEY_ESCAPE) && action == GLFW_PRESS)) {
+            glfwSetWindowShouldClose(window, true);
+        }
         if (((key == GLFW_KEY_GRAVE_ACCENT) && action == GLFW_PRESS)) {
             appWindow->SetFullScreen(!appWindow->IsFullscreen());
         }
@@ -244,7 +248,8 @@ void AppWindow::KeyCallback(GLFWwindow *window, int key, int scanCode, int actio
 void AppWindow::CursorCallback(GLFWwindow *window, double xpos, double ypos) {
     void *ptr = glfwGetWindowUserPointer(window);
     if (auto *appWindow = static_cast<AppWindow*>(ptr) ) {
-
+        appWindow->m_cursorPosition = {xpos, ypos};
+        std::cout << "Mouse Pos: " << appWindow->m_cursorPosition.x << ", " << appWindow->m_cursorPosition.y << std::endl;
     }
 }
 
@@ -257,8 +262,10 @@ void AppWindow::SetFullScreen(bool fullscreen) {
         glfwGetWindowPos(m_glfwWindow, &m_windowedPosition.x, &m_windowedPosition.y);
         glfwGetWindowSize(m_glfwWindow, &m_windowedSize.x, &m_windowedSize.y);
 
+
         // get resolution of monitor
-        const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        const GLFWvidmode *mode = glfwGetVideoMode(m_monitor);
+        std::cout << mode->width << ", " << mode->height << " : " << mode->refreshRate << std::endl;
 
         // switch to full screen
         glfwSetWindowMonitor(m_glfwWindow, m_monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
